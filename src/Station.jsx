@@ -14,14 +14,14 @@ let Station = (props) => {
       })
       .then((data) => {
         let obj = data.stationBeanList.find((e) => {
-          return e.id == id;
+          return e.id === id;
         });
         setDataObj(obj);
       })
       .catch((err) => {
         console.log(err);
       });
-  }, []);
+  }, [id]);
 
   console.log(dataObj);
 
