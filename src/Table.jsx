@@ -14,7 +14,7 @@ let Table = (props) => {
   let [readyToShow, setReadyToShow] = useState(false);
 
   useEffect(() => {
-    fetch("/data")
+    fetch("https://citybikenycapi.herokuapp.com/data")
       .then((e) => {
         return e.json();
       })
