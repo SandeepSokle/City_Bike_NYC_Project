@@ -21,7 +21,7 @@ let Search = () => {
 
 
   useEffect(() => {
-    fetch("/data")
+    fetch("https://citybikenycapi.herokuapp.com/data")
       .then((e) => {
         // console.log(e.json());
         return e.json();
