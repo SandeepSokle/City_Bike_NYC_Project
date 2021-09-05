@@ -39,25 +39,25 @@ let Table = (props) => {
     let TStation = 0;
     let TBikes = 0;
 
-    if (props.filter == "In Service") {
+    if (props.filter === "In Service") {
       tempData = tableData.map((e) => {
-        if (e.statusValue == "In Service") {
+        if (e.statusValue === "In Service") {
           TStation += 1;
           TBikes += e.availableBikes;
           e.sr = TStation;
         return e;
         }
       });
-    } else if (props.filter == "Not In Service") {
+    } else if (props.filter === "Not In Service") {
       tempData = tableData.map((e) => {
-        if (e.statusValue == "Not In Service") {
+        if (e.statusValue === "Not In Service") {
           TStation += 1;
           TBikes += e.availableBikes;
         e.sr = TStation;
         return e;
         }
       });
-    } else if (props.filter == "avail") {
+    } else if (props.filter === "avail") {
       tempData = tableData.map((e) => {
         if (e.availableBikes > 0) {
           TStation += 1;
@@ -66,7 +66,7 @@ let Table = (props) => {
         return e;
         }
       });
-    } else if (props.filter == "NotAvail") {
+    } else if (props.filter === "NotAvail") {
       tempData = tableData.map((e) => {
         if (e.availableBikes <= 0) {
           TStation += 1;
@@ -93,7 +93,7 @@ let Table = (props) => {
     setTotalStations(TStation);
     setCurrPage(1);
     let pages = parseInt(TStation / 8);
-    numberOfPages = TStation % 8 == 0 ? pages : pages + 1;
+    numberOfPages = TStation % 8 === 0 ? pages : pages + 1;
     setTotalNmberOfPages(numberOfPages);
   }, [props.filter,tableData]);
 
@@ -107,7 +107,7 @@ let Table = (props) => {
     }
 
     let tempPageNumberToShow = [];
-    if (currPage == 1) {
+    if (currPage === 1) {
       let i = 0;
       let j = currPage;
       while (i < 3 && j <= totalNumberOfPages) {
@@ -115,7 +115,7 @@ let Table = (props) => {
         i++;
         j++;
       }
-    } else if (currPage == totalNumberOfPages) {
+    } else if (currPage === totalNumberOfPages) {
       let i = 0;
       let j = currPage - 2 ;
       while (i < 3 && j > 0) {
@@ -195,7 +195,7 @@ let Table = (props) => {
                   setCurrPage(e);
                 }}
               >
-                <a class={`${e == currPage ? "select" : ""} page-link fs-4`}>
+                <a class={`${e === currPage ? "select" : ""} page-link fs-4`}>
                   {e}
                 </a>
               </li>
