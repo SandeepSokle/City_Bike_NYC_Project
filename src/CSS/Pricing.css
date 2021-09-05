@@ -1,0 +1,33 @@
+
+
+
+.pricingContainer{
+
+    display: flex; 
+    flex-wrap: wrap;
+    justify-content:space-around;
+    align-items: center;
+}
+
+
+.cardSize{
+    width: 18rem;
+}
+
+.image1,.image2{
+    height: 18rem;
+    width: 18rem;
+}
+
+.image1{
+    background-image: url("../Images/free.jpg");
+    background-position: center;
+    background-size: contain;
+}
+
+
+.image2{
+    background-image: url("../Images/paid.png");
+    background-position: center;
+    background-size: contain;
+}

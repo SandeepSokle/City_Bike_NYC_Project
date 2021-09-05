@@ -1,0 +1,24 @@
+
+
+
+
+
+ul{
+    font-size: 18px;
+}
+
+li:hover{
+    background-color: rgba(0, 0, 255, 0.467);
+    cursor: pointer;
+    color: white;
+}
+
+.select{
+    background-color: blue;
+    color: white;
+}
+
+
+.filter_container{
+    margin-right: 1rem;
+}
