@@ -28,27 +28,27 @@ let Navbar = ()=>{
     <div class="collapse navbar-collapse ms-4" id="navbarNav">
       <ul class="navbar-nav">
         <li class="nav-item">
-          <Link class={`${select == "Feature" ? "active" : ""} nav-link`} aria-current="page" to = "./feature" onClick = {()=>{
+          <Link class={`${select === "Feature" ? "active" : ""} nav-link`} aria-current="page" to = "./feature" onClick = {()=>{
             setSelect("Feature")
           }}>Feature</Link>
         </li>
         <li class="nav-item">
-          <Link class={`${select == "Search" ? "active" : ""} nav-link`}  to = "../search" onClick = {()=>{
+          <Link class={`${select === "Search" ? "active" : ""} nav-link`}  to = "../search" onClick = {()=>{
             setSelect("Search")
           }}>Search</Link>
         </li>
         <li class="nav-item">
-          <Link class={`${select == "Pricing" ? "active" : ""} nav-link`}  to = "../pricing" onClick = {()=>{
+          <Link class={`${select === "Pricing" ? "active" : ""} nav-link`}  to = "../pricing" onClick = {()=>{
             setSelect("Pricing")
           }}>Pricing</Link>
         </li>
         <li class="nav-item">
-          <Link class={`${select == "Login" ? "active" : ""} nav-link`}  to = "../login" onClick = {()=>{
+          <Link class={`${select === "Login" ? "active" : ""} nav-link`}  to = "../login" onClick = {()=>{
             setSelect("Login")
           }}>Login</Link>
         </li>
         <li class="nav-item">
-          <Link class={`${select == "About" ? "active" : ""} nav-link`}  to = "../about" onClick = {()=>{
+          <Link class={`${select === "About" ? "active" : ""} nav-link`}  to = "../about" onClick = {()=>{
             setSelect("About")
           }}>About</Link>
         </li>
