@@ -1,4 +1,7 @@
-import { useEffect, useRef, useState } from "react";
+
+
+
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "./CSS/Table.css";
 
@@ -12,8 +15,6 @@ let Table = (props) => {
   let [pageNumberToShow, setPageNumberToShow] = useState([]);
   let [tableData, setTableData] = useState([]);
   let [readyToShow,setReadyToShow] = useState(false);
-  let numberOfPages = 0;
-  let refid = useRef(null);;
 
   useEffect(() => {
     fetch("https://feeds.citibikenyc.com/stations/stations.json")
@@ -23,7 +24,7 @@ let Table = (props) => {
       })
       .then((data) => {
 
-        console.log(data.stationBeanList);
+        // console.log(data.stationBeanList);
 
         setTableData(data.stationBeanList);
         setNewData(data.stationBeanList);
@@ -98,15 +99,13 @@ let Table = (props) => {
     setTotalStations(TStation);
     setCurrPage(1);
     let pages = parseInt(TStation / 8);
-    numberOfPages = TStation % 8 === 0 ? pages : pages + 1;
-    setTotalNmberOfPages(numberOfPages);
+    setTotalNmberOfPages(TStation % 8 === 0 ? pages : pages + 1);
   }, [props.filter,tableData]);
 
   useEffect(() => {
     let sti = parseInt((currPage - 1) * 8);
     let endi = Math.min(parseInt(currPage * 8), totalStations);
     let tempDataToShow = [];
-    refid.current.focus();
 
     for (let i = sti; i < endi; i++) {
       //   console.log(newData[i]);
