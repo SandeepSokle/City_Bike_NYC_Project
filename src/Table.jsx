@@ -1,6 +1,3 @@
-
-
-
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "./CSS/Table.css";
@@ -14,22 +11,19 @@ let Table = (props) => {
   let [dataToShow, setDataToShow] = useState([]);
   let [pageNumberToShow, setPageNumberToShow] = useState([]);
   let [tableData, setTableData] = useState([]);
-  let [readyToShow,setReadyToShow] = useState(false);
+  let [readyToShow, setReadyToShow] = useState(false);
 
   useEffect(() => {
-    fetch("https://feeds.citibikenyc.com/stations/stations.json")
+    fetch("/data")
       .then((e) => {
-        // console.log(e.json());
         return e.json();
       })
       .then((data) => {
-
         // console.log(data.stationBeanList);
 
-        setTableData(data.stationBeanList);
-        setNewData(data.stationBeanList);
+        setTableData(data);
+        setNewData(data);
         setReadyToShow(true);
-
       })
       .catch((err) => {
         console.log(err);
@@ -41,53 +35,55 @@ let Table = (props) => {
     let TStation = 0;
     let TBikes = 0;
 
-    if (props.filter === "In Service") {
-      tempData = tableData.map((e) => {
-        if (e.statusValue === "In Service") {
+    if (tableData !== undefined) {
+      if (props.filter === "In Service") {
+        tempData = tableData.map((e) => {
+          if (e.statusValue === "In Service") {
+            TStation += 1;
+            TBikes += e.availableBikes;
+            e.sr = TStation;
+            return e;
+          }
+          return undefined;
+        });
+      } else if (props.filter === "Not In Service") {
+        tempData = tableData.map((e) => {
+          if (e.statusValue === "Not In Service") {
+            TStation += 1;
+            TBikes += e.availableBikes;
+            e.sr = TStation;
+            return e;
+          }
+          return undefined;
+        });
+      } else if (props.filter === "avail") {
+        tempData = tableData.map((e) => {
+          if (e.availableBikes > 0) {
+            TStation += 1;
+            TBikes += e.availableBikes;
+            e.sr = TStation;
+            return e;
+          }
+          return undefined;
+        });
+      } else if (props.filter === "NotAvail") {
+        tempData = tableData.map((e) => {
+          if (e.availableBikes <= 0) {
+            TStation += 1;
+            TBikes += e.availableBikes;
+            e.sr = TStation;
+            return e;
+          }
+          return undefined;
+        });
+      } else {
+        tempData = tableData.map((e) => {
           TStation += 1;
           TBikes += e.availableBikes;
           e.sr = TStation;
-        return e;
-        }
-        return undefined
-      });
-    } else if (props.filter === "Not In Service") {
-      tempData = tableData.map((e) => {
-        if (e.statusValue === "Not In Service") {
-          TStation += 1;
-          TBikes += e.availableBikes;
-        e.sr = TStation;
-        return e;
-        }
-        return undefined
-      });
-    } else if (props.filter === "avail") {
-      tempData = tableData.map((e) => {
-        if (e.availableBikes > 0) {
-          TStation += 1;
-          TBikes += e.availableBikes;
-        e.sr = TStation;
-        return e;
-        }
-        return undefined
-      });
-    } else if (props.filter === "NotAvail") {
-      tempData = tableData.map((e) => {
-        if (e.availableBikes <= 0) {
-          TStation += 1;
-          TBikes += e.availableBikes;
-        e.sr = TStation;
-        return e;
-        }
-        return undefined
-      });
-    } else {
-      tempData = tableData.map((e) => {
-        TStation += 1;
-        TBikes += e.availableBikes;
-        e.sr = TStation;
-        return e;
-      });
+          return e;
+        });
+      }
     }
 
     tempData = tempData.filter((e) => {
@@ -100,7 +96,7 @@ let Table = (props) => {
     setCurrPage(1);
     let pages = parseInt(TStation / 8);
     setTotalNmberOfPages(TStation % 8 === 0 ? pages : pages + 1);
-  }, [props.filter,tableData]);
+  }, [props.filter, tableData]);
 
   useEffect(() => {
     let sti = parseInt((currPage - 1) * 8);
@@ -123,7 +119,7 @@ let Table = (props) => {
       }
     } else if (currPage === totalNumberOfPages) {
       let i = 0;
-      let j = currPage - 2 ;
+      let j = currPage - 2;
       while (i < 3 && j > 0) {
         tempPageNumberToShow.push(j);
         i++;
@@ -139,17 +135,23 @@ let Table = (props) => {
       }
     }
 
-    if(tempDataToShow[0] !== undefined)
-    setReadyToShow(true);
+    if (tempDataToShow[0] !== undefined) setReadyToShow(true);
     setDataToShow(tempDataToShow);
     setPageNumberToShow(tempPageNumberToShow);
-  }, [currPage, props.filter, tableData,newData,totalNumberOfPages,totalStations]);
+  }, [
+    currPage,
+    props.filter,
+    tableData,
+    newData,
+    totalNumberOfPages,
+    totalStations,
+  ]);
 
   return (
     <div className="col-10">
       <span className="fs-3 p">{`Total Number Of Stations : ${totalStations}`}</span>
-        <br></br>
-        <span className="fs-3 p">{`Total Number Of Bikes : ${totalBikes}`}</span>
+      <br></br>
+      <span className="fs-3 p">{`Total Number Of Bikes : ${totalBikes}`}</span>
 
       <table class="table">
         <thead>
@@ -162,21 +164,22 @@ let Table = (props) => {
           </tr>
         </thead>
         <tbody>
-          {readyToShow ? dataToShow.map((e) => {
-            return (
-              <tr>
-                <td>{e.sr}</td>
-                <td>{e.id}</td>
-                <td>{e.stationName}</td>
-                <td>{e.availableBikes}</td>
-                <td>{e.statusValue}</td>
-                <td>
-                  <Link to={`/station/${e.id}`}>More</Link>
-                </td>
-                
-              </tr>
-            );
-          }) : ""}
+          {readyToShow
+            ? dataToShow.map((e) => {
+                return (
+                  <tr>
+                    <td>{e.sr}</td>
+                    <td>{e.id}</td>
+                    <td>{e.stationName}</td>
+                    <td>{e.availableBikes}</td>
+                    <td>{e.statusValue}</td>
+                    <td>
+                      <Link to={`/station/${e.id}`}>More</Link>
+                    </td>
+                  </tr>
+                );
+              })
+            : ""}
         </tbody>
       </table>
 
@@ -201,7 +204,9 @@ let Table = (props) => {
                   setCurrPage(e);
                 }}
               >
-                <span class={`${e === currPage ? "select" : ""} page-link fs-4`}>
+                <span
+                  class={`${e === currPage ? "select" : ""} page-link fs-4`}
+                >
                   {e}
                 </span>
               </li>

@@ -7,13 +7,13 @@ let Station = (props) => {
   let { id } = useParams();
 
   useEffect(() => {
-    fetch("https://feeds.citibikenyc.com/stations/stations.json")
+    fetch("/data")
       .then((e) => {
         // console.log(e.json());
         return e.json();
       })
       .then((data) => {
-        let obj = (data.stationBeanList).find((e) => {
+        let obj = data.find((e) => {
           console.log(e);
           console.log(e.id,id);
           return e.id === parseInt(id);

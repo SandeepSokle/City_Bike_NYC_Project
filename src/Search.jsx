@@ -21,14 +21,14 @@ let Search = () => {
 
 
   useEffect(() => {
-    fetch("https://feeds.citibikenyc.com/stations/stations.json")
+    fetch("/data")
       .then((e) => {
         // console.log(e.json());
         return e.json();
       })
       .then((data) => {
-        setTableData(data.stationBeanList);
-        setNewData(data.stationBeanList);
+        setTableData(data);
+        setNewData(data);
         setReadyToShow(true);
       })
       .catch((err) => {
