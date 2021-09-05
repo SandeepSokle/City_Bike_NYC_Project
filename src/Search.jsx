@@ -42,24 +42,24 @@ let Search = () => {
     let TBikes = 0;
 
     tempData = tableData.map((e) => {
-      if (e.stationName.indexOf(inputData) != -1) {
+      if (e.stationName.indexOf(inputData) !== -1) {
         TStation += 1;
         TBikes += e.availableBikes;
         e.sr = TStation;
         return e;
       }
+      return "undefined";
     });
 
     tempData = tempData.filter((e) => {
       return typeof e != "undefined";
     });
-
     setNewData(tempData);
     setTotalBikes(TBikes);
     setTotalStations(TStation);
     setCurrPage(1);
     let pages = parseInt(TStation / 8);
-    numberOfPages = TStation % 8 == 0 ? pages : pages + 1;
+    numberOfPages = TStation % 8 === 0 ? pages : pages + 1;
     setTotalNmberOfPages(numberOfPages);
   }, [tableData, inputData]);
 
@@ -75,7 +75,7 @@ let Search = () => {
     }
 
     let tempPageNumberToShow = [];
-    if (currPage == 1) {
+    if (currPage === 1) {
       let i = 0;
       let j = currPage;
       while (i < 3 && j <= totalNumberOfPages) {
@@ -104,7 +104,7 @@ let Search = () => {
     if (tempDataToShow[0] != undefined) setReadyToShow(true);
     setDataToShow(tempDataToShow);
     setPageNumberToShow(tempPageNumberToShow);
-  }, [currPage, tableData, newData,inputData]);
+  }, [currPage, tableData, newData,inputData,totalNumberOfPages]);
 
 
 
@@ -171,12 +171,12 @@ let Search = () => {
             <li
               class={`page-item`}
               onClick={() => {
-                if (currPage != 1) {
+                if (currPage !== 1) {
                   setCurrPage(currPage - 1);
                 }
               }}
             >
-              <a class="page-link">Previous</a>
+              <a class="page-link" href = "#"> Previous</a>
             </li>
 
             {pageNumberToShow.map((e) => {
