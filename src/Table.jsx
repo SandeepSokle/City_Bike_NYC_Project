@@ -137,7 +137,7 @@ let Table = (props) => {
       }
     }
 
-    if(tempDataToShow[0] != undefined)
+    if(tempDataToShow[0] !== undefined)
     setReadyToShow(true);
     setDataToShow(tempDataToShow);
     setPageNumberToShow(tempPageNumberToShow);
@@ -188,7 +188,7 @@ let Table = (props) => {
               }
             }}
           >
-            <a class="page-link">Previous</a>
+            <span class="page-link">Previous</span>
           </li>
 
           {pageNumberToShow.map((e) => {
@@ -199,9 +199,9 @@ let Table = (props) => {
                   setCurrPage(e);
                 }}
               >
-                <a class={`${e === currPage ? "select" : ""} page-link fs-4`}>
+                <span class={`${e === currPage ? "select" : ""} page-link fs-4`}>
                   {e}
-                </a>
+                </span>
               </li>
             );
           })}
@@ -214,7 +214,7 @@ let Table = (props) => {
               }
             }}
           >
-            <a class="page-link">Next</a>
+            <span class="page-link">Next</span>
           </li>
         </ul>
       </nav>
