@@ -83,7 +83,7 @@ let Search = () => {
         i++;
         j++;
       }
-    } else if (currPage == totalNumberOfPages) {
+    } else if (currPage === totalNumberOfPages) {
       let i = 0;
       let j = currPage - 2;
       while (i < 3 && j > 0) {
@@ -101,10 +101,10 @@ let Search = () => {
       }
     }
 
-    if (tempDataToShow[0] != undefined) setReadyToShow(true);
+    if (tempDataToShow[0] !== undefined) setReadyToShow(true);
     setDataToShow(tempDataToShow);
     setPageNumberToShow(tempPageNumberToShow);
-  }, [currPage, tableData, newData,inputData,totalNumberOfPages]);
+  }, [currPage, tableData, newData,inputData,totalNumberOfPages,totalStations]);
 
 
 
@@ -176,7 +176,7 @@ let Search = () => {
                 }
               }}
             >
-              <a class="page-link" href = "#"> Previous</a>
+              <span class="page-link"> Previous</span>
             </li>
 
             {pageNumberToShow.map((e) => {
@@ -187,9 +187,9 @@ let Search = () => {
                     setCurrPage(e);
                   }}
                 >
-                  <a class={`${e == currPage ? "select" : ""} page-link fs-4`}>
+                  <span class={`${e === currPage ? "select" : ""} page-link fs-4`}>
                     {e}
-                  </a>
+                  </span>
                 </li>
               );
             })}
@@ -202,7 +202,7 @@ let Search = () => {
                 }
               }}
             >
-              <a class="page-link">Next</a>
+              <span class="page-link">Next</span>
             </li>
           </ul>
         </nav>

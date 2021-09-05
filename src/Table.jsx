@@ -47,6 +47,7 @@ let Table = (props) => {
           e.sr = TStation;
         return e;
         }
+        return undefined
       });
     } else if (props.filter === "Not In Service") {
       tempData = tableData.map((e) => {
@@ -56,6 +57,7 @@ let Table = (props) => {
         e.sr = TStation;
         return e;
         }
+        return undefined
       });
     } else if (props.filter === "avail") {
       tempData = tableData.map((e) => {
@@ -65,6 +67,7 @@ let Table = (props) => {
         e.sr = TStation;
         return e;
         }
+        return undefined
       });
     } else if (props.filter === "NotAvail") {
       tempData = tableData.map((e) => {
@@ -74,6 +77,7 @@ let Table = (props) => {
         e.sr = TStation;
         return e;
         }
+        return undefined
       });
     } else {
       tempData = tableData.map((e) => {
@@ -137,7 +141,7 @@ let Table = (props) => {
     setReadyToShow(true);
     setDataToShow(tempDataToShow);
     setPageNumberToShow(tempPageNumberToShow);
-  }, [currPage, props.filter, tableData,newData]);
+  }, [currPage, props.filter, tableData,newData,totalNumberOfPages,totalStations]);
 
   return (
     <div className="col-10">
@@ -179,7 +183,7 @@ let Table = (props) => {
           <li
             class={`page-item`}
             onClick={() => {
-              if (currPage != 1) {
+              if (currPage !== 1) {
                 setCurrPage(currPage - 1);
               }
             }}
