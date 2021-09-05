@@ -4,7 +4,7 @@
 
 
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import "./CSS/Search.css"
 let Search = () => {
@@ -19,6 +19,8 @@ let Search = () => {
   let [readyToShow, setReadyToShow] = useState(false);
   let [inputData,setInputData] = useState("");
   let numberOfPages = 0;
+
+  let refid = useRef(null);
 
   useEffect(() => {
     fetch("https://feeds.citibikenyc.com/stations/stations.json")
@@ -60,6 +62,7 @@ let Search = () => {
     setCurrPage(1);
     let pages = parseInt(TStation / 8);
     numberOfPages = TStation % 8 === 0 ? pages : pages + 1;
+    refid.current.focus();
     setTotalNmberOfPages(numberOfPages);
   }, [tableData, inputData]);
 

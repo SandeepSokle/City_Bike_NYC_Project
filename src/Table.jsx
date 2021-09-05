@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import "./CSS/Table.css";
 
@@ -13,6 +13,7 @@ let Table = (props) => {
   let [tableData, setTableData] = useState([]);
   let [readyToShow,setReadyToShow] = useState(false);
   let numberOfPages = 0;
+  let refid = useRef(null);;
 
   useEffect(() => {
     fetch("https://feeds.citibikenyc.com/stations/stations.json")
@@ -105,6 +106,8 @@ let Table = (props) => {
     let sti = parseInt((currPage - 1) * 8);
     let endi = Math.min(parseInt(currPage * 8), totalStations);
     let tempDataToShow = [];
+    refid.current.focus();
+
     for (let i = sti; i < endi; i++) {
       //   console.log(newData[i]);
       tempDataToShow.push(newData[i]);
