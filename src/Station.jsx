@@ -7,6 +7,7 @@ let Station = (props) => {
   let { id } = useParams();
 
   useEffect(() => {
+    if(id){
     fetch("https://citybikenycapi.herokuapp.com/data")
       .then((e) => {
         // console.log(e.json());
@@ -24,11 +25,12 @@ let Station = (props) => {
       .catch((err) => {
         console.log(err);
       });
+    }
   }, [id]);
 
   console.log(dataObj);
 
-  return dataObj !== undefined ? (
+  return Object.keys(dataObj).length !== 0 ? (
     <div>
       <div class="row justify-content-center">
         <div class="col-6 p-3 fs-2 danger">
