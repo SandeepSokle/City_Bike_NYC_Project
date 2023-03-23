@@ -1,13 +1,5 @@
-
-
-
-
-
-
-
-let Login = ()=>{
-    return (<div>Login</div>)
-}
-
+let Login = () => {
+  return <div>Login</div>;
+};
 
 export default Login;

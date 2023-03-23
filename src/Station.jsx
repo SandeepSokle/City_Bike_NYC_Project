@@ -8,7 +8,7 @@ let Station = (props) => {
 
   useEffect(() => {
     if(id){
-    fetch("https://citybikenycapi.herokuapp.com/data")
+    fetch("https://city-bike-nyc.onrender.com")
       .then((e) => {
         // console.log(e.json());
         return e.json();

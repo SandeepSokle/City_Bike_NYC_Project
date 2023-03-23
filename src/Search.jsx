@@ -1,12 +1,6 @@
-
-
-
-
-
-
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import "./CSS/Search.css"
+import "./CSS/Search.css";
 let Search = () => {
   let [totalStations, setTotalStations] = useState(0);
   let [totalBikes, setTotalBikes] = useState(0);
@@ -17,11 +11,10 @@ let Search = () => {
   let [pageNumberToShow, setPageNumberToShow] = useState([]);
   let [tableData, setTableData] = useState([]);
   let [readyToShow, setReadyToShow] = useState(false);
-  let [inputData,setInputData] = useState("");
+  let [inputData, setInputData] = useState("");
 
-
-  useEffect(() => {
-    fetch("https://citybikenycapi.herokuapp.com/data")
+  useEffect(() => {  
+    fetch("https://city-bike-nyc.onrender.com")
       .then((e) => {
         // console.log(e.json());
         return e.json();
@@ -59,10 +52,9 @@ let Search = () => {
     setTotalStations(TStation);
     setCurrPage(1);
     let pages = parseInt(TStation / 8);
-     
+
     setTotalNmberOfPages(TStation % 8 === 0 ? pages : pages + 1);
   }, [tableData, inputData]);
-
 
   // console.log(newData);
   useEffect(() => {
@@ -104,18 +96,19 @@ let Search = () => {
     if (tempDataToShow[0] !== undefined) setReadyToShow(true);
     setDataToShow(tempDataToShow);
     setPageNumberToShow(tempPageNumberToShow);
-  }, [currPage, tableData, newData,inputData,totalNumberOfPages,totalStations]);
-
-
+  }, [
+    currPage,
+    tableData,
+    newData,
+    inputData,
+    totalNumberOfPages,
+    totalStations,
+  ]);
 
   return (
-    <div className = "p-4">
+    <div className="p-4">
       <div class="input-group col-4 mb-4">
-        <button
-          class="col-3 fs-5 btnBtn "
-          type="button"
-          id="button-addon2"
-        >
+        <button class="col-3 fs-5 btnBtn " type="button" id="button-addon2">
           Search Here
         </button>
         <input
@@ -124,8 +117,8 @@ let Search = () => {
           placeholder="Recipient's username"
           aria-label="Recipient's username"
           aria-describedby="button-addon2"
-          onChange = {(e)=>{
-          setInputData(e.target.value);
+          onChange={(e) => {
+            setInputData(e.target.value);
           }}
         />
       </div>
@@ -138,7 +131,7 @@ let Search = () => {
         <table class="table">
           <thead>
             <tr>
-            <th scope="col">Sr.</th>
+              <th scope="col">Sr.</th>
               <th scope="col">#Id</th>
               <th scope="col">Station Name</th>
               <th scope="col">Available Bikes</th>
@@ -149,8 +142,8 @@ let Search = () => {
             {readyToShow
               ? dataToShow.map((e) => {
                   return (
-                    <tr className = "fs-6">
-                <td>{e.sr}</td>
+                    <tr className="fs-6">
+                      <td>{e.sr}</td>
                       <td>{e.id}</td>
                       <td>{e.stationName}</td>
                       <td>{e.availableBikes}</td>
@@ -158,7 +151,6 @@ let Search = () => {
                       <td>
                         <Link to={`/station/${e.id}`}>More</Link>
                       </td>
-                      
                     </tr>
                   );
                 })
@@ -187,7 +179,9 @@ let Search = () => {
                     setCurrPage(e);
                   }}
                 >
-                  <span class={`${e === currPage ? "select" : ""} page-link fs-4`}>
+                  <span
+                    class={`${e === currPage ? "select" : ""} page-link fs-4`}
+                  >
                     {e}
                   </span>
                 </li>
