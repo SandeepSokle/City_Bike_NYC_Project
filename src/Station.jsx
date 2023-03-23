@@ -8,7 +8,7 @@ let Station = (props) => {
 
   useEffect(() => {
     if(id){
-    fetch("https://city-bike-nyc.onrender.com")
+    fetch("https://city-bike-nyc.onrender.com/data")
       .then((e) => {
         // console.log(e.json());
         return e.json();

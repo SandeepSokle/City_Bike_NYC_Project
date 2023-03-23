@@ -14,7 +14,7 @@ let Table = (props) => {
   let [readyToShow, setReadyToShow] = useState(false);
 
   useEffect(() => {
-    fetch("https://city-bike-nyc.onrender.com")
+    fetch("https://city-bike-nyc.onrender.com/data")
       .then((e) => {
         return e.json();
       })

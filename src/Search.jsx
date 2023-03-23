@@ -14,7 +14,7 @@ let Search = () => {
   let [inputData, setInputData] = useState("");
 
   useEffect(() => {  
-    fetch("https://city-bike-nyc.onrender.com")
+    fetch("https://city-bike-nyc.onrender.com/data")
       .then((e) => {
         // console.log(e.json());
         return e.json();
