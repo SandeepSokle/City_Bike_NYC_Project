@@ -1,3 +1,4 @@
+import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "./CSS/Table.css";
@@ -13,21 +14,30 @@ let Table = (props) => {
   let [tableData, setTableData] = useState([]);
   let [readyToShow, setReadyToShow] = useState(false);
 
-  useEffect(() => {
-    fetch("https://city-bike-nyc.onrender.com/data")
-      .then((e) => {
-        return e.json();
-      })
-      .then((data) => {
-        // console.log(data.stationBeanList);
+  const getData = async () => {
+    let data = await axios.get("https://city-bike-nyc.onrender.com/data");
+    // console.log(data);
+    setTableData(data.data);
+    setNewData(data);
+    setReadyToShow(true);
+  };
 
-        setTableData(data);
-        setNewData(data);
-        setReadyToShow(true);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+  useEffect(() => {
+    getData();
+    // fetch("https://city-bike-nyc.onrender.com/data")
+    //   .then((e) => {
+    //     return e.json();
+    //   })
+    //   .then((data) => {
+    //     // console.log(data.stationBeanList);
+    //     setTableData(data);
+    //     setNewData(data);
+
+    //     setReadyToShow(true);
+    //   })
+    //   .catch((err) => {
+    //     console.log(err);
+    //   });
   }, []);
 
   useEffect(() => {
@@ -167,7 +177,7 @@ let Table = (props) => {
           {readyToShow
             ? dataToShow.map((e) => {
                 return (
-                  <tr>
+                  <tr key={e.sr}>
                     <td>{e.sr}</td>
                     <td>{e.id}</td>
                     <td>{e.stationName}</td>
@@ -196,9 +206,10 @@ let Table = (props) => {
             <span class="page-link">Previous</span>
           </li>
 
-          {pageNumberToShow.map((e) => {
+          {pageNumberToShow.map((e, idx) => {
             return (
               <li
+                key={e + idx + ""}
                 class="page-item"
                 onClick={() => {
                   setCurrPage(e);

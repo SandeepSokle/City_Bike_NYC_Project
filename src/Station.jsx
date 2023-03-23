@@ -15,8 +15,8 @@ let Station = (props) => {
       })
       .then((data) => {
         let obj = data.find((e) => {
-          console.log(e);
-          console.log(e.id,id);
+          // console.log(e);
+          // console.log(e.id,id);
           return e.id === parseInt(id);
         });
         // console.log(obj);
@@ -28,7 +28,7 @@ let Station = (props) => {
     }
   }, [id]);
 
-  console.log(dataObj);
+  // console.log(dataObj);
 
   return Object.keys(dataObj).length !== 0 ? (
     <div>
